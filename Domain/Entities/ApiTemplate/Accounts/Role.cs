@@ -1,4 +1,4 @@
-﻿using Domain.BaseEntities;
+﻿using Domain.BaseEntities.ApiTemplate;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,6 +15,6 @@ namespace Domain.Entities.ApiTemplate.Accounts
         public required string Description { get; set; }
 
         // Reference Navigation Property
-        public Account Account { get; set; }
+        public List<Account> Account { get; set; }
     }
 }

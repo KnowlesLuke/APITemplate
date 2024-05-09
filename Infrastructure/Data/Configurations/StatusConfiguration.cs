@@ -2,14 +2,14 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Data.Configurations.ApiTemplate
+namespace Infrastructure.Data.Configurations
 {
-    internal class AssetTypeConfiguration : IEntityTypeConfiguration<AssetType>
+    internal class StatusConfiguration : IEntityTypeConfiguration<Status>
     {
-        public void Configure(EntityTypeBuilder<AssetType> builder)
+        public void Configure(EntityTypeBuilder<Status> builder)
         {
             // Set table name and schema Fluent API
-            builder.ToTable("Types", "Assets");
+            builder.ToTable("Status", "Assets");
 
             // Set column constraints Fluent API Name
             builder.Property(a => a.Name)
@@ -22,11 +22,12 @@ namespace Infrastructure.Data.Configurations.ApiTemplate
             // Automatically set filters for all queries (Where Deleted is null)
             builder.HasQueryFilter(a => a.Deleted == null);
 
+
             // Seed Data
             builder.HasData(
-                new AssetType { Id = 1, Name = "Laptop", Description = "Laptop Type", CreatedBy = "SeededData" },
-                new AssetType { Id = 2, Name = "Desktop", Description = "Desktop Type", CreatedBy = "SeededData" },
-                new AssetType { Id = 3, Name = "Mobile", Description = "Mobile Type", CreatedBy = "SeededData" }
+                new Status { Id = 1, Name = "Active", Description = "Active Status", CreatedBy = "SeededData" },
+                new Status { Id = 2, Name = "Inactive", Description = "Inactive Status", CreatedBy = "SeededData" },
+                new Status { Id = 3, Name = "Pending", Description = "Pending Status", CreatedBy = "SeededData" }
             );
         }
     }

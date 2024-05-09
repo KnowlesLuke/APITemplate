@@ -50,15 +50,16 @@ namespace API.Controllers.Accounts
         {
             try
             {
+                // Validate account ID
+                if (accountId <= 0)
+                    return BadRequest("Account ID is required");
+
                 // Get account from the service
                 AccountResponse? account = await _accountsReadService.GetAccountByIdAsync(accountId);
 
-                // Check if account is null
+                // Check if account is null and return 404
                 if (account == null)
-                {
-                    // Return not found
                     return NotFound();
-                }
 
                 // Return account
                 return Ok(account);

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.BaseEntities
+namespace Domain.BaseEntities.ApiTemplate
 {
     public abstract class BaseTableEntity
     {
@@ -24,8 +24,7 @@ namespace Domain.BaseEntities
         public byte[] Version { get; set; }
 
         // For audit purposes - Created date
-        [DefaultValue("GETDATE()")]
-        public DateTime Created { get; set; }
+        public DateTime Created { get; set; } = DateTime.Now;
 
         // For audit purposes
         public required string CreatedBy { get; set; }

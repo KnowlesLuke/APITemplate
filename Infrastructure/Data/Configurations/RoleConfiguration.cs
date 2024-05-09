@@ -1,15 +1,15 @@
-﻿using Domain.Entities.ApiTemplate.Assets;
+﻿using Domain.Entities.ApiTemplate.Accounts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Data.Configurations.ApiTemplate
+namespace Infrastructure.Data.Configurations
 {
-    internal class StatusConfiguration : IEntityTypeConfiguration<Status>
+    internal class RoleConfiguration : IEntityTypeConfiguration<Role>
     {
-        public void Configure(EntityTypeBuilder<Status> builder)
+        public void Configure(EntityTypeBuilder<Role> builder)
         {
             // Set table name and schema Fluent API
-            builder.ToTable("Status", "Assets");
+            builder.ToTable("Roles", "Accounts");
 
             // Set column constraints Fluent API Name
             builder.Property(a => a.Name)
@@ -22,12 +22,11 @@ namespace Infrastructure.Data.Configurations.ApiTemplate
             // Automatically set filters for all queries (Where Deleted is null)
             builder.HasQueryFilter(a => a.Deleted == null);
 
-
             // Seed Data
             builder.HasData(
-                new Status { Id = 1, Name = "Active", Description = "Active Status", CreatedBy = "SeededData" },
-                new Status { Id = 2, Name = "Inactive", Description = "Inactive Status", CreatedBy = "SeededData" },
-                new Status { Id = 3, Name = "Pending", Description = "Pending Status", CreatedBy = "SeededData" }
+                new Role { Id = 1, Name = "System Admin", Description = "System Admin AccountRole", CreatedBy = "SeededData" },
+                new Role { Id = 2, Name = "Admin", Description = "Admin AccountRole", CreatedBy = "SeededData" },
+                new Role { Id = 3, Name = "Guest", Description = "Guest AccountRole", CreatedBy = "SeededData" }
             );
         }
     }

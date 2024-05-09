@@ -1,4 +1,4 @@
-﻿using Domain.BaseEntities;
+﻿using Domain.BaseEntities.ApiTemplate;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,7 +14,7 @@ namespace Domain.Entities.ApiTemplate.Accounts
 
         public required string Surname { get; set; }
 
-        public required string DisplayName { get; set; }
+        public string DisplayName { get; private set; }
 
         public required string Username { get; set; }
 

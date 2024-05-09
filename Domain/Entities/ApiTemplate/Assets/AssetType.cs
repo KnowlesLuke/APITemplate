@@ -1,4 +1,4 @@
-﻿using Domain.BaseEntities;
+﻿using Domain.BaseEntities.ApiTemplate;
 using System;
 using System.Collections.Generic;
 using System.Linq;

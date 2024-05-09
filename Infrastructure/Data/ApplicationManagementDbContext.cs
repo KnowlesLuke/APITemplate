@@ -30,10 +30,4 @@ public partial class ApplicationManagementDbContext : DbContext
 
     // Reference to the ExceptionDetail Entity - Exceptions.Details Table in Database
     public virtual DbSet<ExceptionDetail> ExceptionDetails { get; set; }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        // Using Fluent API inside config classes to set constraints - Higher Flexibility than using Data Annotations
-        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-    }
 }

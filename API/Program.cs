@@ -2,6 +2,7 @@ using Application.Interfaces.Accounts;
 using Application.Interfaces.Common.Logging;
 using Infrastructure.Data;
 using Infrastructure.Data.DbContextSetup;
+using Infrastructure.Repositories.Accounts;
 using Infrastructure.Repositories.Common;
 using Infrastructure.Services.Accounts;
 
@@ -47,6 +48,7 @@ else
 
 // Add services to the container.
 builder.Services.AddScoped<IAccountsReadService, AccountsReadService>();
+builder.Services.AddScoped<IAccountsWriteService, AccountsWriteService>();
 builder.Services.AddScoped<ILoggingService, LoggingService>();
 
 #endregion

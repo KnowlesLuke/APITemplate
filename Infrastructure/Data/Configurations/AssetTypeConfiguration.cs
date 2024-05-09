@@ -1,15 +1,15 @@
-﻿using Domain.Entities.ApiTemplate.Accounts;
+﻿using Domain.Entities.ApiTemplate.Assets;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Data.Configurations.ApiTemplate
+namespace Infrastructure.Data.Configurations
 {
-    internal class RoleConfiguration : IEntityTypeConfiguration<Role>
+    internal class AssetTypeConfiguration : IEntityTypeConfiguration<AssetType>
     {
-        public void Configure(EntityTypeBuilder<Role> builder)
+        public void Configure(EntityTypeBuilder<AssetType> builder)
         {
             // Set table name and schema Fluent API
-            builder.ToTable("Roles", "Accounts");
+            builder.ToTable("Types", "Assets");
 
             // Set column constraints Fluent API Name
             builder.Property(a => a.Name)
@@ -24,9 +24,9 @@ namespace Infrastructure.Data.Configurations.ApiTemplate
 
             // Seed Data
             builder.HasData(
-                new Role { Id = 1, Name = "System Admin", Description = "System Admin AccountRole", CreatedBy = "SeededData" },
-                new Role { Id = 2, Name = "Admin", Description = "Admin AccountRole", CreatedBy = "SeededData" },
-                new Role { Id = 3, Name = "Guest", Description = "Guest AccountRole", CreatedBy = "SeededData" }
+                new AssetType { Id = 1, Name = "Laptop", Description = "Laptop Type", CreatedBy = "SeededData" },
+                new AssetType { Id = 2, Name = "Desktop", Description = "Desktop Type", CreatedBy = "SeededData" },
+                new AssetType { Id = 3, Name = "Mobile", Description = "Mobile Type", CreatedBy = "SeededData" }
             );
         }
     }

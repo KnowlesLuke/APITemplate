@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Data.Configurations.ApiTemplate
+namespace Infrastructure.Data.Configurations
 {
     internal class AccountConfiguration : IEntityTypeConfiguration<Account>
     {
@@ -18,6 +18,10 @@ namespace Infrastructure.Data.Configurations.ApiTemplate
             // Set column constraints Fluent API Surname
             builder.Property(a => a.Surname)
                 .IsRequired();
+
+            // Set column constraints Fluent API DisplayName - Computed Column Of Forename + Surname
+            builder.Property(a => a.DisplayName)
+                .HasComputedColumnSql("[Forename] + ' ' + [Surname]");
 
             // Set column constraints Fluent API ApplicationUsername
             builder.Property(a => a.Username)
@@ -42,7 +46,6 @@ namespace Infrastructure.Data.Configurations.ApiTemplate
                     Id = 1,
                     Forename = "John",
                     Surname = "Doe",
-                    DisplayName = "John Doe",
                     Username = "TMBC\\John.Doe",
                     Email = "john.doe@tameside.gov.uk",
                     RoleId = 1,

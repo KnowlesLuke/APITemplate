@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Data.Configurations.ApiTemplate
+namespace Infrastructure.Data.Configurations
 {
     internal class AssetConfiguration : IEntityTypeConfiguration<Asset>
     {

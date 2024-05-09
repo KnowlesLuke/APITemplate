@@ -1,4 +1,4 @@
-﻿using Domain.BaseEntities;
+﻿using Domain.BaseEntities.ApiTemplate;
 
 namespace Domain.Entities.ApiTemplate.Assets
 {
