@@ -1,10 +1,12 @@
 using Application.Interfaces.Accounts;
 using Application.Interfaces.Common.Logging;
+using Application.Models.Common;
 using Infrastructure.Data;
 using Infrastructure.Data.DbContextSetup;
 using Infrastructure.Repositories.Accounts;
 using Infrastructure.Repositories.Common;
 using Infrastructure.Services.Accounts;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,6 +52,16 @@ else
 builder.Services.AddScoped<IAccountsReadService, AccountsReadService>();
 builder.Services.AddScoped<IAccountsWriteService, AccountsWriteService>();
 builder.Services.AddScoped<ILoggingService, LoggingService>();
+
+#endregion
+
+#region Configure Application Details IOptions
+
+// Add functionality to inject IOptions<T>
+builder.Services.AddOptions();
+
+// Add Config object so it can be injected
+builder.Services.Configure<AppDetails>(builder.Configuration.GetSection("ApplicationDetails"));
 
 #endregion
 

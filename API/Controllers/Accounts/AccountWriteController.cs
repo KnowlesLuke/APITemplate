@@ -29,9 +29,9 @@ namespace API.Controllers.Accounts
             if (accountRequest == null)
                 return BadRequest("Account is required");
 
-            // Validate model
-            if (!ModelState.IsValid)
-                return BadRequest("Missing Values");
+            // Check if Role ID is valid (int field)
+            if (accountRequest.RoleId < 1)
+                return BadRequest("Invalid Parameters");
 
             try
             {
