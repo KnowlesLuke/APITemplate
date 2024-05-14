@@ -11,6 +11,6 @@ namespace Application.Interfaces.Accounts
     {
         public Task<AccountResponse> CreateAccountAsync(AccountRequest request);
 
-        public Task<AccountResponse> UpdateAccountAsync(AccountRequest request);
+        public Task<AccountResponse> UpdateAccountAsync(int accountId, AccountRequest request);
     }
 }

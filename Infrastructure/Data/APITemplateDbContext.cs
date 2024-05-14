@@ -1,4 +1,5 @@
-﻿using Domain.Entities.ApiTemplate.Accounts;
+﻿using Domain.BaseEntities.ApiTemplate;
+using Domain.Entities.ApiTemplate.Accounts;
 using Domain.Entities.ApiTemplate.Assets;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -53,6 +54,24 @@ namespace Infrastructure.Data
 
             // Seperated Configurations for each table - Better for maintainability - Can be found in Configurations Folder
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        }
+
+        // Override SaveChangesAsync to set Modified timestamps for audit
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            var entries = ChangeTracker.Entries<BaseTableEntity>().Where(e => e.State == EntityState.Modified);
+
+            // Set Created and Modified timestamps for audit
+            foreach (var entry in entries)
+            {
+                // Set Modified timestamps for audit
+                entry.Entity.Modified = DateTime.UtcNow;
+
+                // exit foreach loop
+                break;
+            }
+
+            return base.SaveChangesAsync(cancellationToken);
         }
     }
 }

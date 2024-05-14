@@ -13,6 +13,7 @@ namespace Application.DTOs.Accounts
         string Username,
         string Email,
         int RoleId,
-        string CreatedBy
+        string? CreatedBy,
+        string? ModifiedBy
     );
 }

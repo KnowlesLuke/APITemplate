@@ -4,6 +4,7 @@ using Application.Interfaces.Common.Logging;
 using Application.Mappings;
 using Domain.Entities.ApiTemplate.Accounts;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
@@ -69,9 +70,49 @@ namespace Infrastructure.Repositories.Accounts
         }
 
         // Update account
-        public Task<AccountResponse> UpdateAccountAsync(AccountRequest request)
+        public async Task<AccountResponse> UpdateAccountAsync(int accountId, AccountRequest updateRequest)
         {
-            throw new NotImplementedException();
+            try
+            {
+                // Get current account by id - If account not found, throw exception
+                Account existingAccount = await _context.Accounts
+                    .FirstOrDefaultAsync(a => a.Id == accountId) ?? throw new Exception("Account not found");
+
+                // Map update request to Account entity using MappingExtension
+                Account updatedAccount = updateRequest.Map<AccountRequest, Account>();
+
+                // Update account properties
+                _context.Entry(existingAccount).CurrentValues.SetValues(updatedAccount);
+
+                try
+                {
+                    // Save changes
+                    await _context.SaveChangesAsync();
+
+                    // Map updated account to AccountResponse DTO using MappingExtension
+                    return updatedAccount.Map<Account, AccountResponse>();
+                }
+                catch (Exception ex)
+                {
+                    // Log error
+                    await _loggingService.LogError(
+                        "UpdateAccountAsync",
+                        $"An error occurred while updating account {accountId} in the database",
+                        ex);
+
+                    throw new Exception("An error occurred while updating account in the database", ex);
+                }
+            } 
+            catch (Exception ex)
+            {
+                // Log error
+                await _loggingService.LogError(
+                    "UpdateAccountAsync",
+                    $"An error occurred while mapping account update request to account {updateRequest}",
+                    ex);
+
+                throw new Exception("An error occurred while updating an account", ex);
+            }
         }
     }
 }
