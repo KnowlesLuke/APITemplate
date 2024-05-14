@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.DTOs.Accounts
 {
+    // Contract that is returned on successful account creation and update
     public record AccountResponse
     (
         int Id,
@@ -15,6 +16,7 @@ namespace Application.DTOs.Accounts
         string Username,
         string Email,
         int RoleId,
-        DateTime Created
+        DateTime Created,
+        DateTime? Modified
     );
 }

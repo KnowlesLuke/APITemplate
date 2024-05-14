@@ -62,15 +62,15 @@ namespace Infrastructure.Repositories.Accounts
                 // Log error
                 await _loggingService.LogError(
                     "CreateAccountAsync",
-                    $"An error occurred while mapping account request to account {request}",
+                    $"An error occurred while mapping account request to account {request} - {ex.Message}",
                     ex);
 
-                throw new Exception("An error occurred while creating an account", ex);
+                throw new Exception($"An error occurred while creating an account - {ex.Message}", ex);
             }
         }
 
         // Update account
-        public async Task<AccountResponse> UpdateAccountAsync(int accountId, AccountRequest updateRequest)
+        public async Task<AccountResponse> UpdateAccountAsync(int accountId, AccountPut updateRequest)
         {
             try
             {
@@ -79,10 +79,13 @@ namespace Infrastructure.Repositories.Accounts
                     .FirstOrDefaultAsync(a => a.Id == accountId) ?? throw new Exception("Account not found");
 
                 // Map update request to Account entity using MappingExtension
-                Account updatedAccount = updateRequest.Map<AccountRequest, Account>();
+                Account updatedAccount = updateRequest.Map<AccountPut, Account>();
 
                 // Update account properties
-                _context.Entry(existingAccount).CurrentValues.SetValues(updatedAccount);
+                _context.Entry(existingAccount).State = EntityState.Modified;
+
+                // Call method to update account properties of existing account - only update properties that are not null
+                existingAccount.UpdateAccountEntity(updatedAccount);
 
                 try
                 {
@@ -90,7 +93,7 @@ namespace Infrastructure.Repositories.Accounts
                     await _context.SaveChangesAsync();
 
                     // Map updated account to AccountResponse DTO using MappingExtension
-                    return updatedAccount.Map<Account, AccountResponse>();
+                    return existingAccount.Map<Account, AccountResponse>();
                 }
                 catch (Exception ex)
                 {
@@ -108,10 +111,41 @@ namespace Infrastructure.Repositories.Accounts
                 // Log error
                 await _loggingService.LogError(
                     "UpdateAccountAsync",
-                    $"An error occurred while mapping account update request to account {updateRequest}",
+                    $"An error occurred while mapping account update request to account {updateRequest} - {ex.Message}",
                     ex);
 
-                throw new Exception("An error occurred while updating an account", ex);
+                throw new Exception($"An error occurred while updating an account - {ex.Message}", ex);
+            }
+        }
+
+        // Delete account / Soft delete
+        public async Task DeleteAccountAsync(int accountId, string deletedBy)
+        {
+            try
+            {
+                // Get account by id - If account not found, throw exception
+                Account? account = await _context.Accounts
+                    .FirstOrDefaultAsync(a => a.Id == accountId) ?? throw new Exception("Account not found");
+
+                // Set account properties
+                account.Deleted = DateTime.Now;
+                account.DeletedBy = deletedBy;
+
+                // Update account properties
+                _context.Entry(account).State = EntityState.Modified;
+
+                // Save changes
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                // Log error
+                await _loggingService.LogError(
+                    "DeleteAccountAsync",
+                    $"An error occurred while deleting account {accountId} - {ex.Message}",
+                    ex);
+
+                throw new Exception($"An error occurred while deleting an account - {ex.Message} ", ex);
             }
         }
     }

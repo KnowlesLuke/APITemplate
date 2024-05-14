@@ -25,13 +25,13 @@ namespace API.Controllers.Accounts
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateAccountAsync(AccountRequest accountRequest)
         {
-            // Validate account
+            // Validate Account
             if (accountRequest == null)
                 return BadRequest("Account is required");
 
             try
             {
-                // Create account
+                // Create Account
                 AccountResponse account = await _accountsWriteService.CreateAccountAsync(accountRequest);
 
                 // Check if account is null
@@ -51,26 +51,26 @@ namespace API.Controllers.Accounts
             }
         }
 
-        [HttpPut("UpdateAccount")]
+        [HttpPut("UpdateAccount/{accountId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> UpdateAccountAsync(int accountId, AccountRequest accountRequest)
+        public async Task<IActionResult> UpdateAccountAsync(int accountId, AccountPut accountRequest)
         {
-            // Validate account
+            // Validate Account
             if (accountRequest == null)
                 return BadRequest("Account is required");
 
-            // Validate account ID
+            // Validate Account Id
             if (accountId <= 0)
-                return BadRequest("Account ID is required");
+                return BadRequest("Account Id is required");
 
             try
             {
                 // Update account
                 AccountResponse account = await _accountsWriteService.UpdateAccountAsync(accountId, accountRequest);
 
-                // Check if account is null
+                // Check if return account is null
                 if (account == null)
                     return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while updating account");
 
@@ -84,6 +84,34 @@ namespace API.Controllers.Accounts
 
                 // Return error
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while updating account");
+            }
+        }
+
+        [HttpDelete("DeleteAccount/{accountId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> DeleteAccountAsync(int accountId, string deletedBy)
+        {
+            // Validate Account Id
+            if (accountId <= 0)
+                return BadRequest("Account Id is required");
+
+            try
+            {
+                // Delete account
+                await _accountsWriteService.DeleteAccountAsync(accountId, deletedBy);
+
+                // Return success
+                return Ok("Account deleted successfully");
+            }
+            catch (Exception ex)
+            {
+                // Log error
+                await _loggingService.LogError("DeleteAccountAsync", $"An error occurred while deleting account - {ex.Message}", ex);
+
+                // Return error
+                return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while deleting account - {ex.Message}");
             }
         }
     }

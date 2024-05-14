@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.DTOs.Accounts
 {
+    // Contract for creating an account - Each parameter is mandatory
     public record AccountRequest
     (
         string Forename,
@@ -13,7 +14,6 @@ namespace Application.DTOs.Accounts
         string Username,
         string Email,
         int RoleId,
-        string? CreatedBy,
-        string? ModifiedBy
+        string CreatedBy
     );
 }
