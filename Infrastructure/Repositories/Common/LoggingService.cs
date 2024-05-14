@@ -45,7 +45,7 @@ namespace Infrastructure.Repositories.Common
             try
             {
                 // Log error to database
-                await _context.ExceptionDetails.AddAsync(new ExceptionDetail
+                await _context.ExceptionDetail.AddAsync(new ExceptionDetail
                 {
                     ExceptionType = ex.GetType().ToString(),
                     Message = message,

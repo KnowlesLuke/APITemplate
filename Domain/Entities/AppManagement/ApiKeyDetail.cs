@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Entities.AppManagementEntities;
 
-public partial class ApiKeyDetail
+public class ApiKeyDetail
 {
     [Key]
     public int ApiKeyId { get; set; }

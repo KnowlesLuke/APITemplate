@@ -20,6 +20,7 @@ public partial class ApplicationManagementDbContext : DbContext
         * Entities are set here for use in Context throughout the app
         * We are ovveriding the default schema for each table using Fluent API in the Configurations Folder
         * Schema can also be set as Data Annotations in the Entity Class - Fluent API is the preferred method
+        * Data annotations are used for non-ef databases such as this one. Look in entity classes for annotations
     */
 
     // Reference to the ExceptionData Entity - Exceptions.Data Table in Database
@@ -29,5 +30,5 @@ public partial class ApplicationManagementDbContext : DbContext
     public virtual DbSet<ApiKeyDetail> ApiKeyDetails { get; set; }
 
     // Reference to the ExceptionDetail Entity - Exceptions.Details Table in Database
-    public virtual DbSet<ExceptionDetail> ExceptionDetails { get; set; }
+    public virtual DbSet<ExceptionDetail> ExceptionDetail { get; set; }
 }

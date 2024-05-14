@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities.AppManagementEntities;
 
-public partial class ExceptionDetail
+// Set the schema for the ExceptionDetail entity - Use data annotations for non-ef databases
+[Table("Details", Schema = "Exceptions")]
+public class ExceptionDetail
 {
     [Key]
     public int ExceptionId { get; set; }
@@ -28,7 +31,5 @@ public partial class ExceptionDetail
 
     public string ApplicationName { get; set; } = null!;
 
-    [DefaultValue("GETDATE()")]
-    [DataType(DataType.DateTime)]
-    public DateTime DateTime { get; set; }
+    public DateTime DateTime { get; set; } = DateTime.Now;
 }
