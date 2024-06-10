@@ -46,13 +46,12 @@ namespace UnitTests.Accounts.Write
             _accountNotToUpdate = new Account
             {
                 Id = 2,
-                Forename = "Test Forename",
-                Surname = "Test Surname",
-                Username = "Username",
-                Email = "Email",
-                RoleId = 1,
+                Forename = "Forename",
+                Surname = "Surname",
+                Username = "Username1",
+                Email = "Email2",
                 Created = DateTime.Now,
-                CreatedBy = "James Doe"
+                CreatedBy = "Harald Doe"
             };
         }
 
