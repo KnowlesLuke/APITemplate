@@ -28,6 +28,7 @@ namespace UnitTests
             // Setup Account Update Request - Arrange
             accountRequest = new AccountPut
             (
+                Id: 1,
                 Forename: null,
                 Surname: "Test Surname",
                 Username: "Username",
@@ -51,5 +52,51 @@ namespace UnitTests
             );
         }
 
+        [Fact]
+        public async Task UpdateAccountAsync_ValidAccount_ReturnsAccountResponse()
+        {
+            // Setup UpdateAccountAsync - If accountRequest is passed, return corresponding accountResponse
+            _accountsWriteService.Setup(x => x.UpdateAccountAsync(accountRequest.Id, accountRequest)).ReturnsAsync(accountResponse);
+
+            // Act
+            var result = await _accountsWriteService.Object.UpdateAccountAsync(accountRequest.Id, accountRequest);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(accountResponse.Id, result.Id);
+            Assert.Equal(accountResponse.Forename, result.Forename);
+            Assert.Equal(accountResponse.Surname, result.Surname);
+            Assert.Equal(accountResponse.DisplayName, result.DisplayName);
+            Assert.Equal(accountResponse.Username, result.Username);
+            Assert.Equal(accountResponse.Email, result.Email);
+            Assert.Equal(accountResponse.RoleId, result.RoleId);
+            Assert.Equal(accountResponse.Modified, result.Modified);
+        }
+
+        [Fact]
+        public async Task UpdateAccountAsync_InvalidAccount_ReturnsNull()
+        {
+            // Setup UpdateAccountAsync - If null is passed, return null
+            _accountsWriteService.Setup(x => x.UpdateAccountAsync(accountRequest.Id, null)).ReturnsAsync(() => null);
+
+            // Act
+            var result = await _accountsWriteService.Object.UpdateAccountAsync(accountRequest.Id, null);
+
+            // Assert
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public async Task UpdateAccountAsync_IdEquals0_ReturnsNull()
+        {
+            // Setup UpdateAccountAsync - If 0 is passed for id, return null
+            _accountsWriteService.Setup(x => x.UpdateAccountAsync(0, accountRequest)).ReturnsAsync(() => null);
+
+            // Act
+            var result = await _accountsWriteService.Object.UpdateAccountAsync(0, accountRequest);
+
+            // Assert
+            Assert.Null(result);
+        }
     }
 }

@@ -51,24 +51,24 @@ namespace API.Controllers.Accounts
             }
         }
 
-        [HttpPut("UpdateAccount/{accountId}")]
+        [HttpPut("UpdateAccount")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> UpdateAccountAsync(int accountId, AccountPut accountRequest)
+        public async Task<IActionResult> UpdateAccountAsync(AccountPut accountRequest)
         {
             // Validate Account
             if (accountRequest == null)
                 return BadRequest("Account is required");
 
             // Validate Account Id
-            if (accountId <= 0)
+            if (accountRequest.Id <= 0)
                 return BadRequest("Account Id is required");
 
             try
             {
                 // Update account
-                AccountResponse account = await _accountsWriteService.UpdateAccountAsync(accountId, accountRequest);
+                AccountResponse account = await _accountsWriteService.UpdateAccountAsync(accountRequest.Id, accountRequest);
 
                 // Check if return account is null
                 if (account == null)
