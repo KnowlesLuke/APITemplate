@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UnitTests
+namespace UnitTests.Accounts.Write
 {
     public class AccountsWriteService_CreateAccount
     {
@@ -62,7 +62,10 @@ namespace UnitTests
 
             // Assert
             Assert.NotNull(result);
-            
+
+            // Verify CreateAccountAsync is called only once
+            _accountsWriteService.Verify(x => x.CreateAccountAsync(accountRequest), Times.Once);
+
             // Ensure Id is not 0
             Assert.NotEqual(0, result.Id);
 

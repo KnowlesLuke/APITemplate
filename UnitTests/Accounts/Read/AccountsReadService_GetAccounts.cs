@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UnitTests
+namespace UnitTests.Accounts.Read
 {
     public class AccountsReadService_GetAccounts
     {
