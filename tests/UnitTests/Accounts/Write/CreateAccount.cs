@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace UnitTests.Accounts.Write
 {
-    public class AccountsWriteService_CreateAccount
+    public class CreateAccount
     {
         // Mock IAccountsWriteService
         private readonly Mock<IAccountsWriteService> _accountsWriteService;
@@ -20,7 +20,7 @@ namespace UnitTests.Accounts.Write
         // Account Response
         private readonly AccountResponse accountResponse;
 
-        public AccountsWriteService_CreateAccount()
+        public CreateAccount()
         {
             // Setup Mock AccountsWriteService
             _accountsWriteService = new Mock<IAccountsWriteService>();

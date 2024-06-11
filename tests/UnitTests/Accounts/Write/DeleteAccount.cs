@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace UnitTests.Accounts.Write
 {
-    public class AccountsWriteService_DeleteAccount
+    public class DeleteAccount
     {
         // Mock IAccountsWriteService
         private readonly Mock<IAccountsWriteService> _accountsWriteService;
@@ -22,7 +22,7 @@ namespace UnitTests.Accounts.Write
         private readonly Account _accountNotToUpdate;
 
 
-        public AccountsWriteService_DeleteAccount()
+        public DeleteAccount()
         {
             // Setup Mock AccountsWriteService
             _accountsWriteService = new Mock<IAccountsWriteService>();

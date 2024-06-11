@@ -15,7 +15,7 @@ namespace Domain.Entities.ApiTemplate.Accounts
 
         public required string Surname { get; set; }
 
-        public string DisplayName { get; private set; }
+        public string DisplayName { get; private set; } = "";
 
         public required string Username { get; set; }
 
@@ -60,6 +60,12 @@ namespace Domain.Entities.ApiTemplate.Accounts
                     }
                 }
             }
+        }
+
+        // Set display name
+        public void SetDisplayName()
+        {
+            DisplayName = $"{Forename} {Surname}";
         }
     }
 }

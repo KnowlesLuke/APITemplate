@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace UnitTests.Accounts.Read
 {
-    public class AccountsReadService_GetAccounts
+    public class GetAccounts
     {
         // Mock IAccountsReadService
         private readonly Mock<IAccountsReadService> _accountsReadService;
@@ -20,7 +20,7 @@ namespace UnitTests.Accounts.Read
         // Account Response
         private readonly AccountResponse _accountResponse;
 
-        public AccountsReadService_GetAccounts()
+        public GetAccounts()
         {
             // Setup Mock AccountsReadService
             _accountsReadService = new Mock<IAccountsReadService>();
