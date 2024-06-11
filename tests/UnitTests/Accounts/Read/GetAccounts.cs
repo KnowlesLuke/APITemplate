@@ -93,5 +93,21 @@ namespace UnitTests.Accounts.Read
             // Assert
             Assert.Null(result);
         }
+
+        [Fact]
+        public async Task SearchAccountByNameAsync_ReturnsAccountResponse()
+        {
+            // Setup SearchAccountByNameAsync - If name is passed, return corresponding accountResponse
+            _accountsReadService.Setup(x => x.SearchAccountsAsync("Test Forename")).ReturnsAsync(_accountsResponse);
+
+            // Act
+            var result = await _accountsReadService.Object.SearchAccountsAsync("Test Forename");
+
+            // Assert
+            Assert.NotNull(result);
+
+            Assert.Equal(_accountsResponse, result);
+            Assert.IsAssignableFrom<IEnumerable<AccountResponse>>(result);
+        }
     }
 }

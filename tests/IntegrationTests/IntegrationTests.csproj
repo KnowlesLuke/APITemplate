@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <Folder Include="Accounts\Write\" />
+    <Folder Include="Logging\" />
   </ItemGroup>
 
   <ItemGroup>

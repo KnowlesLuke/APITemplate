@@ -1,5 +1,4 @@
-﻿using Application.Interfaces.Accounts;
-using Application.Interfaces.Common.Logging;
+﻿using Application.Interfaces.Common.Logging;
 using Application.Models.Common;
 using Domain.Entities.ApiTemplate.Accounts;
 using Infrastructure.Data;
@@ -7,11 +6,6 @@ using Infrastructure.Repositories.Common;
 using Infrastructure.Services.Accounts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IntegrationTests.Accounts.Read
 {
@@ -39,10 +33,10 @@ namespace IntegrationTests.Accounts.Read
         {
             #region Initialize
 
-            // Set up application details
+            // Set up test application details
             _applicationDetails = Options.Create(new AppDetails { Name = "APITemplate" });
 
-            // Set up logging service
+            // Set up test logging service
             _loggingService = new LoggingService(new ApplicationManagementDbContext(new DbContextOptions<ApplicationManagementDbContext>()), _applicationDetails);
 
             // Set up database options
@@ -54,7 +48,7 @@ namespace IntegrationTests.Accounts.Read
             // Set up database context
             _context = new APITemplateDbContext(_dbOptions);
 
-            #region Setup and Seed Data
+            #region Setup & Seed Data
 
             // Create account
             _account1 = new()
@@ -129,6 +123,45 @@ namespace IntegrationTests.Accounts.Read
             Assert.Equal("John.Doe", account.Username);
             Assert.Equal("John Doe", account.DisplayName);
             Assert.Equal("email@email.com", account.Email);
+        }
+
+        [Fact]
+        public async Task GetAccountById_Fail()
+        {
+            // Act
+            var account = await _accountsReadService.GetAccountByIdAsync(3);
+
+            // Assert
+            Assert.Null(account);
+        }
+
+        [Fact]
+        public async Task SearchAccountByName_Success()
+        {
+            // Act
+            var account = await _accountsReadService.SearchAccountsAsync("John");
+
+            // Assert
+            Assert.NotNull(account);
+
+            // Check that there is 1 account
+            Assert.Single(account);
+
+            // Check that the account has the correct Forename
+            Assert.Contains(account, x => x.Forename == "John");
+        }
+
+        [Fact]
+        public async Task SearchAccountByName_Fail()
+        {
+            // Act
+            var account = await _accountsReadService.SearchAccountsAsync("Jane");
+
+            // Assert
+            Assert.NotNull(account);
+
+            // Check that there are no accounts
+            Assert.Empty(account);
         }
     }
 }
