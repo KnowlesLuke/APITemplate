@@ -5,6 +5,7 @@ using Infrastructure.Data;
 using Infrastructure.Repositories.Common;
 using Infrastructure.Services.Accounts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Options;
 
 namespace IntegrationTests.Accounts.Read
@@ -16,7 +17,7 @@ namespace IntegrationTests.Accounts.Read
 
         // Application Details
         private readonly IOptions<AppDetails> _applicationDetails;
-        
+
         // ILogging Service
         private readonly ILoggingService _loggingService;
 
@@ -34,14 +35,14 @@ namespace IntegrationTests.Accounts.Read
             #region Initialize
 
             // Set up test application details
-            _applicationDetails = Options.Create(new AppDetails { Name = "APITemplate" });
+            _applicationDetails = Options.Create(new AppDetails { Name = "APITemplateRead" });
 
             // Set up test logging service
             _loggingService = new LoggingService(new ApplicationManagementDbContext(new DbContextOptions<ApplicationManagementDbContext>()), _applicationDetails);
 
             // Set up database options
             _dbOptions = new DbContextOptionsBuilder<APITemplateDbContext>()
-                .UseInMemoryDatabase("APITemplateTest")
+                .UseInMemoryDatabase("APITemplateReadTest", new InMemoryDatabaseRoot())
                 .EnableSensitiveDataLogging()
                 .Options;
 
@@ -101,8 +102,6 @@ namespace IntegrationTests.Accounts.Read
             // Check that the accounts have the correct Display Names
             Assert.Contains(accounts, x => x.DisplayName == "John Doe");
             Assert.Contains(accounts, x => x.DisplayName == "Edgar Freezone");
-
-
         }
 
         [Fact]
