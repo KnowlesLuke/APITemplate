@@ -29,6 +29,10 @@ namespace Infrastructure.Repositories.Accounts
         // Create account
         public async Task<AccountResponse> CreateAccountAsync(AccountRequest request)
         {
+            // If request is null, throw exception
+            if (request == null)
+                throw new Exception("Account request is required");
+
             try
             {
                 // Map request to Account entity using MappingExtension

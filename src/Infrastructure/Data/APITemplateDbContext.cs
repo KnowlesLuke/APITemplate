@@ -59,6 +59,27 @@ namespace Infrastructure.Data
         // Override SaveChangesAsync to set Modified timestamps for audit
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
+            #region Integration Testing and non-SQL Databases
+
+            // If not sql server - For in memory database testing purposes only
+            if (!Database.IsSqlServer())
+            {
+                // Get Modified entries
+                var versionEntries = ChangeTracker.Entries<BaseTableEntity>().Where(e => e.State == EntityState.Added);
+
+                // Set Created and Modified timestamps for audit
+                foreach (var entry in versionEntries)
+                {
+                    // Set Modified timestamps for audit
+                    entry.Entity.Version = ""u8.ToArray();
+
+                    // exit foreach loop
+                    break;
+                }
+            }
+            #endregion
+
+            // Get Modified entries
             var entries = ChangeTracker.Entries<BaseTableEntity>().Where(e => e.State == EntityState.Modified);
 
             // Set Created and Modified timestamps for audit

@@ -64,7 +64,7 @@ namespace IntegrationTests.Accounts.Write
         }
 
         [Fact]
-        public async Task CreateAccount()
+        public async Task CreateValidAccount_ReturnsResponse_Success()
         {
             // Act
             AccountResponse account = await _accountsWriteService.CreateAccountAsync(_accountRequest);
@@ -78,6 +78,35 @@ namespace IntegrationTests.Accounts.Write
             Assert.Equal("Flemming", account.Surname);
             Assert.Equal("TMBC\\Ian.Flemming", account.Username);
             Assert.Equal("ian.flemming@tameside.gov.uk", account.Email);
+        }
+
+        [Fact]
+        public void CreateNullAccount_ReturnsException_Fail()
+        {
+            // Act
+            var account = _accountsWriteService.CreateAccountAsync(null).Exception;
+
+            // Assert - Has Exception
+            Assert.NotNull(account);
+
+            // Check Exception Message
+            Assert.Equal("Account request is required", account?.InnerException?.Message);
+        }
+
+        [Fact]
+        public void CreateAccountWithNullValues_ReturnsException_Fail()
+        {
+            // Arrange
+            AccountRequest accountRequest = new(null, null, "TMBC\\Ian.Flemming", "", 1, "Seed");
+
+            // Act
+            var account = _accountsWriteService.CreateAccountAsync(accountRequest).Exception;
+
+            // Assert - Has Exception
+            Assert.NotNull(account);
+
+            // Check Exception Message
+            Assert.Equal("An error occurred while creating an account - An error occurred while adding account to the database", account?.InnerException?.Message);
         }
     }
 }
