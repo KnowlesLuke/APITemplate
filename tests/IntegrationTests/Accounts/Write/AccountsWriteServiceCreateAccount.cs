@@ -97,7 +97,7 @@ namespace IntegrationTests.Accounts.Write
         public void CreateAccountWithNullValues_ReturnsException_Fail()
         {
             // Arrange
-            AccountRequest accountRequest = new(null, null, "TMBC\\Ian.Flemming", "", 1, "Seed");
+            AccountRequest accountRequest = new(null, null, "TMBC\\Ian.Flemming", "Usr.I.F", 1, "Seed");
 
             // Act
             var account = _accountsWriteService.CreateAccountAsync(accountRequest).Exception;

@@ -64,14 +64,14 @@ namespace Infrastructure.Data
             // If not sql server - For in memory database testing purposes only
             if (!Database.IsSqlServer())
             {
-                // Get Modified entries
+                // Get Added entries
                 var versionEntries = ChangeTracker.Entries<BaseTableEntity>().Where(e => e.State == EntityState.Added);
 
-                // Set Created and Modified timestamps for audit
+                // Set Created byte for audit
                 foreach (var entry in versionEntries)
                 {
-                    // Set Modified timestamps for audit
-                    entry.Entity.Version = ""u8.ToArray();
+                    // Set Version for audit
+                    entry.Entity.Version = Guid.NewGuid().ToByteArray();
 
                     // exit foreach loop
                     break;

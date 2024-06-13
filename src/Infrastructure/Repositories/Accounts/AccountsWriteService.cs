@@ -76,6 +76,14 @@ namespace Infrastructure.Repositories.Accounts
         // Update account
         public async Task<AccountResponse> UpdateAccountAsync(int accountId, AccountPut updateRequest)
         {
+            // If request is null, throw exception
+            if (updateRequest == null)
+                throw new Exception("Account update request is required");
+
+            // If account id is less than or equal to 0, throw exception
+            if (accountId <= 0)
+                throw new Exception("Account Id is required");
+
             try
             {
                 // Get current account by id - If account not found, throw exception
@@ -125,6 +133,14 @@ namespace Infrastructure.Repositories.Accounts
         // Delete account / Soft delete
         public async Task DeleteAccountAsync(int accountId, string deletedBy)
         {
+            // If account id is less than or equal to 0, throw exception
+            if (accountId <= 0)
+                throw new Exception("Account Id is required");
+
+            // If deleted by is null or empty, throw exception
+            if (string.IsNullOrEmpty(deletedBy))
+                throw new Exception("Deleted by is required");
+
             try
             {
                 // Get account by id - If account not found, throw exception
