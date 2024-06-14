@@ -40,8 +40,11 @@ if (builder.Environment.IsDevelopment())
 }
 else
 {
-    // Add environment variables for production - Stored on the server
-    builder.Configuration.AddEnvironmentVariables();
+    // Add appsettings production.json for production environment
+    builder.Configuration
+        .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+        .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
+        .AddEnvironmentVariables();
 }
 
 #endregion
