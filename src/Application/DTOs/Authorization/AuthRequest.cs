@@ -10,7 +10,7 @@ namespace Application.DTOs.Authorization
     public record AuthRequest
     (
         string Name,
-        string SecretKey,
+        string SecretKeyHash,
         string PublicKey
     );
 }

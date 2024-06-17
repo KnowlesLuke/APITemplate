@@ -15,6 +15,7 @@ namespace Application.DTOs.Accounts
         string DisplayName,
         string Username,
         string Email,
+        Guid Token,
         int RoleId,
         DateTime Created,
         DateTime? Modified

@@ -34,6 +34,7 @@ namespace UnitTests.Accounts.Read
                 DisplayName: "Test Forename Surname",
                 Username: "Username",
                 Email: "Email Address",
+                Token: Guid.NewGuid(),
                 RoleId: 1,
                 Created: DateTime.Now,
                 Modified: DateTime.Now

@@ -46,6 +46,7 @@ namespace UnitTests.Accounts.Write
                 DisplayName: "Test Forename Test Surname",
                 Username: "Username",
                 Email: "Email",
+                Token: Guid.NewGuid(),
                 RoleId: 1,
                 Created: DateTime.Now,
                 Modified: DateTime.Now

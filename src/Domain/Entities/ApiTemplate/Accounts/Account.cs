@@ -22,6 +22,7 @@ namespace Domain.Entities.ApiTemplate.Accounts
         [EmailAddress]
         public required string Email { get; set; }
 
+        public Guid Token { get; set; } = Guid.NewGuid();
 
         // Foreign Key
         public int RoleId { get; set; }

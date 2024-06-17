@@ -1,4 +1,5 @@
 ﻿using Application.DTOs.Authorization;
+using Application.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.JsonWebTokens;
@@ -27,7 +28,14 @@ namespace API.Controllers.Authorization
             if (authRequest == null)
                 return BadRequest();
 
-            // Check the auth request against the database
+            // Check the auth header fields
+
+
+            // Check the hash
+            var hash = ""; // Create the hash from the database fields
+
+            //if (!hash.CheckHash(authRequest.SecretKeyHash))
+            //    return Unauthorized();
 
             // If the request is valid, create a token
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["AuthenticationSettings:SecretKey"]));
@@ -38,10 +46,10 @@ namespace API.Controllers.Authorization
             {
                 [ClaimTypes.Name] = authRequest.Name,
                 [ClaimTypes.NameIdentifier] = authRequest.PublicKey,
-                [ClaimTypes.Sid] = authRequest.SecretKey
+                [ClaimTypes.Hash] = authRequest.SecretKeyHash
             };
 
-            // Create Json Web Token
+            // Create Json Web Token Options class
             var token = new SecurityTokenDescriptor
             {
                 Issuer = _config["AuthenticationSettings:Issuer"],
@@ -51,11 +59,13 @@ namespace API.Controllers.Authorization
                 SigningCredentials = credentials
             };
 
+            // Set up the handler
             JsonWebTokenHandler handler = new()
             {
                 SetDefaultTimesOnTokenCreation = false
             };
 
+            // Create the token
             var tokenString = handler.CreateToken(token);
 
             return Ok(tokenString);
