@@ -12,13 +12,17 @@ public class ApiKeyDetail
 
     public string ApiKey { get; set; } = null!;
 
-    public string? PrivateKey { get; set; }
+    public string PrivateKey { get; set; } = null!;
 
     public int? ApplicationId { get; set; }
 
     public string? AllowedHosts { get; set; }
 
     public int? ExpiryLimit { get; set; }
+
+    public Guid ReadAction { get; set; }
+
+    public Guid WriteAction { get; set; }
 
     // For audit purposes - Created date
     [DefaultValue("GETDATE()")]

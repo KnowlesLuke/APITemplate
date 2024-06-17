@@ -13,13 +13,17 @@ namespace Application.Models.Common
          * It is invoked in the AppManagementService class when authenticating a request
          */
 
-        public AppManagementAuth()
+        public AppManagementAuth(string publicKey, string secretKey, bool canWrite)
         {
-            // Default constructor
+            PublicKey = publicKey;
+            SecretKey = secretKey;
+            CanWrite = canWrite;
         }
 
-        public string Name { get; private set; }
+        public string PublicKey { get; private set; }
 
         public string SecretKey { get; private set; }
+
+        public bool CanWrite { get; private set; }
     }
 }

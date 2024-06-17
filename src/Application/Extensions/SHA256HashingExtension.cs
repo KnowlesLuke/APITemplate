@@ -45,7 +45,6 @@ namespace Application.Extensions
                 return string.Empty;
 
             // Create a SHA256
-
             try
             {
                 // ComputeHash - returns byte array

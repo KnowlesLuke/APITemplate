@@ -11,6 +11,7 @@ namespace Application.DTOs.Authorization
     (
         string Name,
         string SecretKeyHash,
-        string PublicKey
+        string PublicKey,
+        Guid Action
     );
 }

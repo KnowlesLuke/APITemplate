@@ -1,5 +1,7 @@
 ﻿using Application.DTOs.Authorization;
 using Application.Extensions;
+using Application.Interfaces.Common.AppManagement;
+using Application.Models.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.JsonWebTokens;
@@ -16,29 +18,37 @@ namespace API.Controllers.Authorization
         // Inject the configuration
         private readonly IConfiguration _config;
 
-        public AuthorizationController(IConfiguration config)
+        // Setup IAppManagementReadService
+        private readonly IAppManagementService _appManagementService;
+
+        public AuthorizationController(IConfiguration config, IAppManagementService appManagementService)
         {
             _config = config;
+            _appManagementService = appManagementService;
         }
 
-        [HttpPost("CreateToken")]
-        public IActionResult CreateToken(AuthRequest authRequest)
+        [HttpPost("CreateReadToken")]
+        public async Task<IActionResult> CreateReadToken(AuthRequest authRequest)
         {
             // Check if the request is valid
             if (authRequest == null)
                 return BadRequest();
 
-            // Check the auth header fields
-
-
             // Check the hash
-            var hash = ""; // Create the hash from the database fields
+            AppManagementAuth auth = await _appManagementService.ValidateRequest(authRequest.PublicKey, authRequest.Action);
 
-            //if (!hash.CheckHash(authRequest.SecretKeyHash))
-            //    return Unauthorized();
+            // Build the hashed secret key
+            string hashBuilder = auth.SecretKey + "_" + auth.PublicKey + "_" + authRequest.Action;
 
-            // If the request is valid, create a token
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["AuthenticationSettings:SecretKey"]));
+            // Create the hashed key
+            string hashedKey = hashBuilder.CreateHash();
+
+            // Check that the secret key matches the hash
+            if (!hashedKey.CheckHash(authRequest.SecretKeyHash))
+                return Unauthorized();
+
+            // If the request is valid, setup the security key and credentials
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(auth.SecretKey));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             // Set up claims
@@ -46,7 +56,8 @@ namespace API.Controllers.Authorization
             {
                 [ClaimTypes.Name] = authRequest.Name,
                 [ClaimTypes.NameIdentifier] = authRequest.PublicKey,
-                [ClaimTypes.Hash] = authRequest.SecretKeyHash
+                [ClaimTypes.Hash] = authRequest.SecretKeyHash,
+                [ClaimTypes.Role] = authRequest.Action
             };
 
             // Create Json Web Token Options class
@@ -55,7 +66,7 @@ namespace API.Controllers.Authorization
                 Issuer = _config["AuthenticationSettings:Issuer"],
                 Audience = _config["AuthenticationSettings:Audience"],
                 Claims = claims,
-                Expires = DateTime.UtcNow.AddMinutes(30),
+                Expires = DateTime.UtcNow.AddMinutes(10),
                 SigningCredentials = credentials
             };
 

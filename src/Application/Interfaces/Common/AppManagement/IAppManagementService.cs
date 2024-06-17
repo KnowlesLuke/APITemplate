@@ -9,6 +9,6 @@ namespace Application.Interfaces.Common.AppManagement
 {
     public interface IAppManagementService
     {
-        public Task<AppManagementAuth> ValidateRequest(string apiKey);
+        public Task<AppManagementAuth> ValidateRequest(string apiKey, Guid action);
     }
 }
