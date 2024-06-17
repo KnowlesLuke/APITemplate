@@ -1,6 +1,7 @@
 ﻿using Application.DTOs.Accounts;
 using Application.Interfaces.Accounts;
 using Application.Interfaces.Common.Logging;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,7 @@ namespace API.Controllers.Accounts
 {
     [Route("APITemplate")]
     [ApiController]
+    [Authorize]
     public class AccountWriteController : ControllerBase
     {
         private readonly IAccountsWriteService _accountsWriteService;
@@ -22,6 +24,7 @@ namespace API.Controllers.Accounts
         [HttpPost("CreateAccount")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateAccountAsync(AccountRequest accountRequest)
         {
@@ -54,6 +57,7 @@ namespace API.Controllers.Accounts
         [HttpPut("UpdateAccount")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateAccountAsync(AccountPut accountRequest)
         {
@@ -90,6 +94,7 @@ namespace API.Controllers.Accounts
         [HttpDelete("DeleteAccount/{accountId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteAccountAsync(int accountId, string deletedBy)
         {

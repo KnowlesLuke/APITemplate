@@ -6,27 +6,59 @@ using Infrastructure.Data.DbContextSetup;
 using Infrastructure.Repositories.Accounts;
 using Infrastructure.Repositories.Common;
 using Infrastructure.Services.Accounts;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Configuration;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var config = builder.Configuration;
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Please enter token",
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        BearerFormat = "JWT",
+        Scheme = "bearer"
+    });
+
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type=ReferenceType.SecurityScheme,
+                    Id="Bearer"
+                }
+            },
+            new string[]{}
+        }
+    });
+});
 
 #region Configure DbContexts
 
 // Add APITemplate DbContext
 builder.Services.ConfigureEfDefaults<APITemplateDbContext>(
-    builder.Configuration, 
+    config, 
     "ApiTemplate",
     builder.Environment.IsDevelopment());
 
-// Add AppManagement DbContext
+// Add AppManagementAuth DbContext
 builder.Services.ConfigureEfDefaults<ApplicationManagementDbContext>(
-    builder.Configuration, 
-    "AppManagement", 
+    config, 
+    "AppManagementAuth", 
     builder.Environment.IsDevelopment());
 
 #endregion
@@ -36,13 +68,13 @@ builder.Services.ConfigureEfDefaults<ApplicationManagementDbContext>(
 // Use appsettings.Development.json for development environment
 if (builder.Environment.IsDevelopment())
 {
-    builder.Configuration.AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true);
+    config.AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true);
 }
 else
 {
     // Add appsettings production.json for production environment
-    builder.Configuration
-        .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+    config
+        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
         .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
         .AddEnvironmentVariables();
 }
@@ -64,7 +96,31 @@ builder.Services.AddScoped<ILoggingService, LoggingService>();
 builder.Services.AddOptions();
 
 // Add Config object so it can be injected
-builder.Services.Configure<AppDetails>(builder.Configuration.GetSection("ApplicationDetails"));
+builder.Services.Configure<AppDetails>(config.GetSection("ApplicationDetails"));
+
+#endregion
+
+#region Configure JWT Authentication
+
+// Add JWT Authentication
+builder.Services.AddAuthentication(opt => {
+    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = config["AuthenticationSettings:Issuer"],
+            ValidAudience = config["AuthenticationSettings:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(config["AuthenticationSettings:SecretKey"]!))
+        };
+    });
 
 #endregion
 
@@ -80,6 +136,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
