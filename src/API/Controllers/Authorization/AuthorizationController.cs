@@ -27,8 +27,8 @@ namespace API.Controllers.Authorization
             _appManagementService = appManagementService;
         }
 
-        [HttpPost("CreateReadToken")]
-        public async Task<IActionResult> CreateReadToken(AuthRequest authRequest)
+        [HttpPost("CreateToken")]
+        public async Task<IActionResult> CreateToken(AuthRequest authRequest)
         {
             // Check if the request is valid
             if (authRequest == null)
@@ -38,26 +38,26 @@ namespace API.Controllers.Authorization
             AppManagementAuth auth = await _appManagementService.ValidateRequest(authRequest.PublicKey, authRequest.Action);
 
             // Build the hashed secret key
-            string hashBuilder = auth.SecretKey + "_" + auth.PublicKey + "_" + authRequest.Action;
+            //string hashBuilder = auth.SecretKey + "_" + auth.PublicKey + "_" + authRequest.Action;
 
             // Create the hashed key
-            string hashedKey = hashBuilder.CreateHash();
+            //string hashedKey = hashBuilder.CreateHash();
 
-            // Check that the secret key matches the hash
-            if (!hashedKey.CheckHash(authRequest.SecretKeyHash))
-                return Unauthorized();
+            // Check that the secret key matches the hash - TODO
+            //if (!hashedKey.CheckHash(authRequest.SecretKeyHash))
+            //return Unauthorized();
 
             // If the request is valid, setup the security key and credentials
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(auth.SecretKey));
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["AuthenticationSettings:SecretKey"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-            // Set up claims
+            // Set up claims - Seperate for read and write
             var claims = new Dictionary<string, object>
             {
                 [ClaimTypes.Name] = authRequest.Name,
                 [ClaimTypes.NameIdentifier] = authRequest.PublicKey,
-                [ClaimTypes.Hash] = authRequest.SecretKeyHash,
-                [ClaimTypes.Role] = authRequest.Action
+                [ClaimTypes.Sid] = authRequest.SecretKeyHash,
+                [ClaimTypes.Role] = auth.CanWrite ? "Write" : "Read"
             };
 
             // Create Json Web Token Options class
@@ -66,7 +66,7 @@ namespace API.Controllers.Authorization
                 Issuer = _config["AuthenticationSettings:Issuer"],
                 Audience = _config["AuthenticationSettings:Audience"],
                 Claims = claims,
-                Expires = DateTime.UtcNow.AddMinutes(10),
+                Expires = DateTime.UtcNow.AddMinutes(30),
                 SigningCredentials = credentials
             };
 

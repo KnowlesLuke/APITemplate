@@ -1,4 +1,5 @@
 using Application.Interfaces.Accounts;
+using Application.Interfaces.Common.AppManagement;
 using Application.Interfaces.Common.Logging;
 using Application.Models.Common;
 using Infrastructure.Data;
@@ -17,7 +18,9 @@ var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+#region Add Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -46,6 +49,7 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 });
+#endregion
 
 #region Configure DbContexts
 
@@ -55,15 +59,17 @@ builder.Services.ConfigureEfDefaults<APITemplateDbContext>(
     "ApiTemplate",
     builder.Environment.IsDevelopment());
 
-// Add AppManagementAuth DbContext
+// Add AppManagement DbContext
 builder.Services.ConfigureEfDefaults<ApplicationManagementDbContext>(
     config, 
-    "AppManagementAuth", 
+    "AppManagement", 
     builder.Environment.IsDevelopment());
 
 #endregion
 
 #region Configure Environment Specific Behaviour with appsettings.json
+
+config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
 // Use appsettings.Development.json for development environment
 if (builder.Environment.IsDevelopment())
@@ -74,7 +80,6 @@ else
 {
     // Add appsettings production.json for production environment
     config
-        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
         .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
         .AddEnvironmentVariables();
 }
@@ -87,6 +92,7 @@ else
 builder.Services.AddScoped<IAccountsReadService, AccountsReadService>();
 builder.Services.AddScoped<IAccountsWriteService, AccountsWriteService>();
 builder.Services.AddScoped<ILoggingService, LoggingService>();
+builder.Services.AddScoped<IAppManagementService, AppManagementService>();
 
 #endregion
 

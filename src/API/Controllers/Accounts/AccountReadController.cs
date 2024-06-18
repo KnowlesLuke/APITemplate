@@ -9,7 +9,7 @@ namespace API.Controllers.Accounts
 {
     [Route("APITemplate")]
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = "Read")]
     public class AccountReadController : ControllerBase
     {
         private readonly IAccountsReadService _accountsReadService;
