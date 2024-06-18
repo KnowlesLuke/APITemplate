@@ -6,7 +6,7 @@
 ### Directory Structure
 
 /src - The source folder is the codebase for the application. It is further split into 4 projects. Click on each project to see the detail of what each contains.\
-/tests - The tests folder contains all of the unit, integration & in future the functional tests for the application.\
+/tests - The tests folder contains all of the unit, integration & in future the functional tests for the application.
 
 ### Project Overview
 This project uses a loose version of clean architecture, cutting some corners to save layers of abstraction.\
