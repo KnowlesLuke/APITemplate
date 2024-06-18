@@ -10,4 +10,4 @@
 
 ### Project Overview
 This project uses a loose version of clean architecture, cutting some corners to save layers of abstraction.\
-It uses .NET 8 throughout each project which is the latest version (at time of writing)\
+It uses .NET 8 throughout each project which is the latest version (at time of writing)
