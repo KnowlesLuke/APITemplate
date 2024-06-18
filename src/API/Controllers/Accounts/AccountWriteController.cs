@@ -9,6 +9,7 @@ namespace API.Controllers.Accounts
 {
     [Route("APITemplate")]
     [ApiController]
+    [Authorize(Roles = "Write")]
     public class AccountWriteController : ControllerBase
     {
         private readonly IAccountsWriteService _accountsWriteService;
@@ -20,11 +21,11 @@ namespace API.Controllers.Accounts
             _loggingService = loggingService;
         }
 
-        [Authorize(Roles = "Write")]
         [HttpPost("CreateAccount")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateAccountAsync(AccountRequest accountRequest)
         {
@@ -54,11 +55,11 @@ namespace API.Controllers.Accounts
             }
         }
 
-        [Authorize(Roles = "Write")]
         [HttpPut("UpdateAccount")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateAccountAsync(AccountPut accountRequest)
         {
@@ -92,11 +93,11 @@ namespace API.Controllers.Accounts
             }
         }
 
-        [Authorize(Roles = "Write")]
         [HttpDelete("DeleteAccount/{accountId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteAccountAsync(int accountId, string deletedBy)
         {

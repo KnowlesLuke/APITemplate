@@ -37,15 +37,19 @@ namespace API.Controllers.Authorization
             // Check the hash
             AppManagementAuth auth = await _appManagementService.ValidateRequest(authRequest.PublicKey, authRequest.Action);
 
+            // Check if the auth is null
+            if (auth == null)
+                return Unauthorized();
+
             // Build the hashed secret key
-            //string hashBuilder = auth.SecretKey + "_" + auth.PublicKey + "_" + authRequest.Action;
+            string hashBuilder = auth.SecretKey + "_" + auth.PublicKey + "_" + authRequest.Action;
 
             // Create the hashed key
-            //string hashedKey = hashBuilder.CreateHash();
+            string hashedKey = hashBuilder.CreateHash();
 
-            // Check that the secret key matches the hash - TODO
+            // Check that the secret key matches the hash - Implement the CheckHash extension method
             //if (!hashedKey.CheckHash(authRequest.SecretKeyHash))
-            //return Unauthorized();
+            //    return Unauthorized();
 
             // If the request is valid, setup the security key and credentials
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["AuthenticationSettings:SecretKey"]));
