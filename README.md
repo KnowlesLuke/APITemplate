@@ -12,7 +12,7 @@
 This project uses a loose version of clean architecture, cutting some corners to save layers of abstraction which are seen as overkill for our applications.
 
 - It uses .NET 8 throughout each project which is the latest version (at time of writing)
-- It uses EFCore to handle database interaction. Ef Core can also be used in contingency with using Stored Procedures.
+- It uses EFCore to handle database interaction. Ef Core can also be used in contingency with Stored Procedures.
   - It uses localdb for local development and the dev server for publishing to development.
 - It uses XUnit as a testing framework to perform unit and integration tests.
 - Swagger is integrated and used for testing locally on your machine.
@@ -22,6 +22,6 @@ This project uses a loose version of clean architecture, cutting some corners to
 - Each time a merge or push to the master branch is made, a GitHub action will run and ensure that the project builds and all tests pass.
 
 ## How to begin
-To use this template as a starting point, click the green _Use This Template_ button at the top right of the repository. This will clone the repo into a new repository and allow you to work on a new project without having to push any changes back to the existing repo.\
+To use this template as a starting point, click the green _Use This Template_ button at the top right of the repository. This will clone the repo into a new repository and allow you to work on a new project without having to push any changes back to the existing repo.
 
 Should you find an issue in the template, please log it in the Issues tab.
