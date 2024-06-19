@@ -9,7 +9,7 @@
 /tests - The tests folder contains all of the unit, integration & in future the functional tests for the application.
 
 ## Project Overview
-This project uses a loose version of clean architecture, cutting some corners to save layers of abstraction which are seen as overkill for our applications.\
+This project uses a loose version of clean architecture, cutting some corners to save layers of abstraction which are seen as overkill for our applications.
 
 - It uses .NET 8 throughout each project which is the latest version (at time of writing)
 - It uses EFCore to handle database interaction. Ef Core can also be used in contingency with using Stored Procedures.
@@ -19,5 +19,9 @@ This project uses a loose version of clean architecture, cutting some corners to
 - It uses JWT to authorize requests.
   - The JWT tokens can be generated via the AuthorizationController -> CreateToken Endpoint.
   - Auth is split between read and write for security reasons (View the AppManagement database to see the details of each project).
+- Each time a merge or push to the master branch is made, a GitHub action will run and ensure that the project builds and all tests pass.
 
 ## How to begin
+To use this template as a starting point, click the green _Use This Template_ button at the top right of the repository. This will clone the repo into a new repository and allow you to work on a new project without having to push any changes back to the existing repo.\
+
+Should you find an issue in the template, please log it in the Issues tab.
