@@ -84,3 +84,30 @@ GET - ApiTemplate/GetAccounts
 
 
 ## Get Account By Id <a name="getaccountbyid"></a>
+### Example Headers
+```diff
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.nXr32i0IbYSD7V3EKhyA1eA3_Lz28POavdBiPP0xKg8
+```
+
+### Example Request
+```diff
+GET - ApiTemplate/GetAccountById/17
+```
+
+### Example Response
+
+✅ **200 Okay**
+```json
+{
+    "id": 17,
+    "forename": "ABC",
+    "surname": "string",
+    "displayName": "ABC string",
+    "username": "string",
+    "email": "string",
+    "token": "00000000-0000-0000-0000-000000000000",
+    "roleId": 2,
+    "created": "2024-05-14T15:18:37.1021",
+    "modified": "2024-05-14T16:03:56.8270596"
+}
+```
