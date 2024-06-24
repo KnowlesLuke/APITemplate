@@ -52,9 +52,32 @@ GET - ApiTemplate/GetAccounts
 ```
 ### Example Response
 ```json
-{
-  
-}
+[
+  {
+    "id": 17,
+    "forename": "ABC",
+    "surname": "string",
+    "displayName": "ABC string",
+    "username": "string",
+    "email": "string",
+    "token": "00000000-0000-0000-0000-000000000000",
+    "roleId": 2,
+    "created": "2024-05-14T15:18:37.1021",
+    "modified": "2024-05-14T16:03:56.8270596"
+  },
+  {
+    "id": 20,
+    "forename": "fore1",
+    "surname": "sur1",
+    "displayName": "fore1 sur1",
+    "username": "usr1",
+    "email": "email@email.com",
+    "token": "de4bbd50-12ec-443c-b19d-0a571d4206af",
+    "roleId": 2,
+    "created": "2024-06-18T11:25:03.0008777",
+    "modified": null
+  }
+]
 ```
 
 
