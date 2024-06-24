@@ -15,7 +15,7 @@ The details for the name, public key and action can be found in the AppManagemen
 **Note (There are different identifiers for Read and Write actions.)**
 
 ## Create Token <a name="createtoken"></a>
-### Example Body - For read access
+### Example Request - For read access
 ```diff
 POST - ApiTemplate/CreateToken
 ```
@@ -46,7 +46,7 @@ The following are a list of requests that require read permission/get requests.
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.nXr32i0IbYSD7V3EKhyA1eA3_Lz28POavdBiPP0xKg8
 ```
 
-### Example Body
+### Example Request
 ```diff
 GET - ApiTemplate/GetAccounts
 ```
