@@ -11,7 +11,7 @@ using System.Text;
 
 namespace API.Controllers.Authorization
 {
-    [Route("api/[controller]")]
+    [Route("APITemplate")]
     [ApiController]
     public class AuthorizationController : ControllerBase
     {
