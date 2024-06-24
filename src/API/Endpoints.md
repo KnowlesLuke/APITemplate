@@ -1,5 +1,4 @@
 # API Endpoints
-
 Each endpoint (with the exception being the CreateToken) requires a JWT Bearer token in order to be an authorised request.
 
 ## Authorisation & JWT
