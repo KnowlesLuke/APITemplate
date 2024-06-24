@@ -5,7 +5,7 @@ Each endpoint (with the exception being the CreateToken) requires a JWT Bearer t
 1. [Authorisation](#authorisation)
     1. [Create Token](#createtoken)
 2. [Get Accounts](#getaccounts)
-3. [Get Accountt By Id](#getaccountbyid)
+3. [Get Account By Id](#getaccountbyid)
 
 ## Authorisation
 The JWT token can be created by calling the **CreateToken** endpoint and passing 4 parameters to the body.
@@ -37,5 +37,21 @@ POST - ApiTemplate/CreateToken
 ```
 
 ## Get Accounts <a name="getaccounts"></a>
+### Example Headers
+```diff
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.nXr32i0IbYSD7V3EKhyA1eA3_Lz28POavdBiPP0xKg8
+```
+
+### Example Body
+```diff
+GET - ApiTemplate/GetAccounts
+```
+### Example Response
+```json
+{
+  
+}
+```
+
 
 ## Get Account By Id <a name="getaccountbyid"></a>
