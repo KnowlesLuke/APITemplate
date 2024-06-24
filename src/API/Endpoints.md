@@ -8,6 +8,10 @@ The details for the name, public key and action can be found in the AppManagemen
 **Note (There are different identifiers for Read and Write actions.)**
 
 ### Example Body
+```diff
+POST - ApiTemplate/CreateToken
+```
+
 ```json
 {
   "name": "string",
