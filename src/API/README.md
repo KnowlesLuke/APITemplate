@@ -4,11 +4,18 @@ The API layer is the front facing application that is the interface to the outer
 
 The list of endpoints within the project can be found below:
 
+## Accounts
   - GET
     - GetAccounts
+    - GetAccountById/{accountId}
+    - SearchAccounts/{searchTerm}
   - POST
     - CreateAccount
   - PUT
     - UpdateAccount
   - DELETE
-    - DeleteAccount
+    - DeleteAccount/{accountId}
+
+## Authorization
+  - POST
+    - CreateToken
