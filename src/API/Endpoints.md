@@ -51,6 +51,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3O
 GET - ApiTemplate/GetAccounts
 ```
 ### Example Response
+
+✅ **200 Okay**
 ```json
 [
   {
