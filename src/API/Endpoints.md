@@ -15,17 +15,17 @@ The details for the name, public key and action can be found in the AppManagemen
 **Note (There are different identifiers for Read and Write actions.)**
 
 ## Create Token <a name="createtoken"></a>
-### Example Body
+### Example Body - For read access
 ```diff
 POST - ApiTemplate/CreateToken
 ```
 
 ```json
 {
-  "name": "string",
-  "secretKeyHash": "string",
-  "publicKey": "string",
-  "action": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+  "name": "APITemplate",
+  "secretKeyHash": "!TestSecretKeyForApplication1-ApiT3mP",
+  "publicKey": "IlcOVAIgA7JxREYdmencdYeff59MlWFcOXLd0OVHhOCcdfjfpPiH4kHInwyeCXLs8mABn6a48KNz7iyRbcjV0fz4zK2obggSpQhgcAYlkvVOAXt4eLB0omaqzFVVRJwZ",
+  "action": "775318C9-8F30-4293-A70B-EF57F305D035"
 }
 ```
 ### Example Response
