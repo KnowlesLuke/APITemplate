@@ -2,7 +2,7 @@
 
 The API layer is the front facing application that is the interface to the outer world. This project receives the requests that are sent via controllers.
 
-The list of endpoints within the project can be found below:
+The overview of endpoints within the project can be found below, for detailed documentation of the endpoints please see Endpoints.md:
 
 ## Accounts
   - GET
