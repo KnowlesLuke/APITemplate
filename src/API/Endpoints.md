@@ -99,15 +99,15 @@ GET - ApiTemplate/GetAccountById/17
 ✅ **200 Okay**
 ```json
 {
-    "id": 17,
-    "forename": "ABC",
-    "surname": "string",
-    "displayName": "ABC string",
-    "username": "string",
-    "email": "string",
-    "token": "00000000-0000-0000-0000-000000000000",
-    "roleId": 2,
-    "created": "2024-05-14T15:18:37.1021",
-    "modified": "2024-05-14T16:03:56.8270596"
+  "id": 17,
+  "forename": "ABC",
+  "surname": "string",
+  "displayName": "ABC string",
+  "username": "string",
+  "email": "string",
+  "token": "00000000-0000-0000-0000-000000000000",
+  "roleId": 2,
+  "created": "2024-05-14T15:18:37.1021",
+  "modified": "2024-05-14T16:03:56.8270596"
 }
 ```
