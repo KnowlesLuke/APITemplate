@@ -7,6 +7,7 @@ Each endpoint (with the exception being the CreateToken) requires a JWT Bearer t
 2. [Read Requests](#readrequests)
     1. [Get Accounts](#getaccounts)
     2. [Get Account By Id](#getaccountbyid)
+    3. [Search Accounts](#searchaccounts)
 
 ## Authorisation
 The JWT token can be created by calling the **CreateToken** endpoint and passing 4 parameters to the body.
@@ -30,7 +31,7 @@ POST - ApiTemplate/CreateToken
 ```
 ### Example Response
 
-✅ **200 Okay**
+✅ **200 Okay** - _Returns JWT Token (for use in auth)_
 ```diff
 {
   eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.nXr32i0IbYSD7V3EKhyA1eA3_Lz28POavdBiPP0xKg8
@@ -109,5 +110,34 @@ GET - ApiTemplate/GetAccountById/17
   "roleId": 2,
   "created": "2024-05-14T15:18:37.1021",
   "modified": "2024-05-14T16:03:56.8270596"
+}
+```
+
+## Search Accounts <a name="searchaccounts"></a>
+### Example Headers
+```diff
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.nXr32i0IbYSD7V3EKhyA1eA3_Lz28POavdBiPP0xKg8
+```
+
+### Example Request
+```diff
+GET - ApiTemplate/SearchAccounts/john
+```
+
+### Example Response
+
+✅ **200 Okay**
+```json
+{
+  "id": 23,
+  "forename": "John",
+  "surname": "Doe",
+  "displayName": "John Doe",
+  "username": "john.doe",
+  "email": "john@doe.com",
+  "token": "de4bbd50-12ec-443c-b19d-0a571d4206af",
+  "roleId": 1,
+  "created": "2024-05-15T15:18:37.1021",
+  "modified": "2024-05-15T16:03:56.8270596"
 }
 ```
