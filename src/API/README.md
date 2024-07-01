@@ -2,12 +2,12 @@
 
 The API layer is the front facing application that is the interface to the outer world. This project receives the requests that are sent via controllers.
 
-The overview of endpoints within the project can be found below, for detailed documentation of the endpoints please see Endpoints.md:
+The interfaces are injected into the controllers via Dependency Injection for abstraction.
+
+To view the detail of the endpoints for this project please view the Endpoints.md (also in this directory)
 
 ## Accounts
   - GET
-    - GetAccounts
-    - GetAccountById/{accountId}
     - SearchAccounts/{searchTerm}
   - POST
     - CreateAccount
@@ -15,7 +15,3 @@ The overview of endpoints within the project can be found below, for detailed do
     - UpdateAccount
   - DELETE
     - DeleteAccount/{accountId}
-
-## Authorization
-  - POST
-    - CreateToken
