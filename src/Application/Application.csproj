@@ -5,6 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AppDesignerFolder>Attributes</AppDesignerFolder>
+    <Configurations>Debug;Release;Development</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
