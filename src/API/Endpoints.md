@@ -10,6 +10,7 @@ Each endpoint (with the exception being the CreateToken) requires a JWT Bearer t
     3. [Search Accounts](#searchaccounts)
 3. [Write Requests](#writerequests)
     1. [Create Account](#createaccount)
+    2. [Update Account](#updateaccount)
 
 ## Authorisation
 The JWT token can be created by calling the **CreateToken** endpoint and passing 4 parameters to the body.
@@ -187,5 +188,44 @@ POST - ApiTemplate/CreateAccount
   "roleId": 2,
   "created": "2024-05-16T15:18:37.1021",
   "modified": null
+}
+```
+
+
+## Update Account <a name="updateaccount"></a>
+### Example Headers
+
+```diff
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjcxMjYiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjcxMjYiLCJleHAiOjE3MjA0NTAwNTUsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJBUElUZW1wbGF0ZSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiSWxjT1ZBSWdBN0p4UkVZZG1lbmNkWWVmZjU5TWxXRmNPWExkME9WSGhPQ2NkZmpmcFBpSDRrSElud3llQ1hMczhtQUJuNmE0OEtOejdpeVJiY2pWMGZ6NHpLMm9iZ2dTcFFoZ2NBWWxrdlZPQVh0NGVMQjBvbWFxekZWVlJKd1oiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zaWQiOiIhVGVzdFNlY3JldEtleUZvckFwcGxpY2F0aW9uMS1BcGlUM21QIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiV3JpdGUifQ.1tW-3WTN-lo02ghXpfFn2jP8tHtzXfbZvOQMKZOt2Rs
+
+```
+### Example Body
+```json
+{
+  "id": 25,
+  "surname": "McAlister",
+  "modifiedBy": "User 1"
+}
+```
+
+### Example Request
+```diff
+POST - ApiTemplate/UpdateAccount
+```
+
+### Example Response
+✅ **200 Okay**
+```json
+{
+  "id": 25,
+  "forename": "Joe",
+  "surname": "McAlister",
+  "displayName": "Joe McAlister",
+  "username": "TMBC.Joe.Bloggs",
+  "email": "joe.bloggs@tmbc.com",
+  "token": "9bd4fe3f-3aed-426d-8747-ebd0094eff95",
+  "roleId": 2,
+  "created": "2024-05-16T15:18:37.1021",
+  "modified": "2024-05-16T15:26:37.1021"
 }
 ```
