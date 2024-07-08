@@ -18,7 +18,7 @@ The details for the name, public key and action can be found in the AppManagemen
 **Note (There are different identifiers for Read and Write actions.)**
 
 ## Create Token <a name="createtoken"></a>
-### Example Request - For read access
+### Example Request
 ```diff
 POST - ApiTemplate/CreateToken
 ```
