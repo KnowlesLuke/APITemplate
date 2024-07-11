@@ -15,6 +15,7 @@ namespace API.Controllers.Accounts
         private readonly IAccountsWriteService _accountsWriteService;
         private readonly ILoggingService _loggingService;
 
+        // Constructor - Dependency Injection
         public AccountWriteController(IAccountsWriteService accountsWriteService, ILoggingService loggingService)
         {
             _accountsWriteService = accountsWriteService;
@@ -88,7 +89,7 @@ namespace API.Controllers.Accounts
                 // Log error
                 await _loggingService.LogError("UpdateAccountAsync", "An error occurred while updating account", ex);
 
-                // Return error
+                // Return error - Keep it generic and don't expose internal details
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while updating account");
             }
         }
@@ -118,8 +119,8 @@ namespace API.Controllers.Accounts
                 // Log error
                 await _loggingService.LogError("DeleteAccountAsync", $"An error occurred while deleting account - {ex.Message}", ex);
 
-                // Return error
-                return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while deleting account - {ex.Message}");
+                // Return error - Keep it generic and don't expose internal details
+                return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while deleting account");
             }
         }
     }
