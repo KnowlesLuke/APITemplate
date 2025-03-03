@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Infrastructure.Data.ApiTemplateMigrations
+namespace Infrastructure.Data.Migrations.APITemplate
 {
     [DbContext(typeof(APITemplateDbContext))]
-    [Migration("20240617140724_Add-User-Token")]
-    partial class AddUserToken
+    [Migration("20250303093624_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -104,14 +104,14 @@ namespace Infrastructure.Data.ApiTemplateMigrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2024, 6, 17, 15, 7, 23, 591, DateTimeKind.Local).AddTicks(9164),
+                            Created = new DateTime(2025, 3, 3, 9, 36, 23, 749, DateTimeKind.Local).AddTicks(3183),
                             CreatedBy = "SeededData",
                             DisplayName = "",
                             Email = "john.doe@tameside.gov.uk",
                             Forename = "John",
                             RoleId = 1,
                             Surname = "Doe",
-                            Token = new Guid("c54941ca-2f86-4a49-85f7-dfb80965a2a4"),
+                            Token = new Guid("c72b832d-dfef-4ee7-af00-37916e2dcc5b"),
                             Username = "TMBC\\John.Doe"
                         });
                 });
@@ -170,7 +170,7 @@ namespace Infrastructure.Data.ApiTemplateMigrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2024, 6, 17, 15, 7, 23, 592, DateTimeKind.Local).AddTicks(5895),
+                            Created = new DateTime(2025, 3, 3, 9, 36, 23, 749, DateTimeKind.Local).AddTicks(7635),
                             CreatedBy = "SeededData",
                             Description = "System Admin AccountRole",
                             Name = "System Admin"
@@ -178,7 +178,7 @@ namespace Infrastructure.Data.ApiTemplateMigrations
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2024, 6, 17, 15, 7, 23, 592, DateTimeKind.Local).AddTicks(5910),
+                            Created = new DateTime(2025, 3, 3, 9, 36, 23, 749, DateTimeKind.Local).AddTicks(7642),
                             CreatedBy = "SeededData",
                             Description = "Admin AccountRole",
                             Name = "Admin"
@@ -186,7 +186,7 @@ namespace Infrastructure.Data.ApiTemplateMigrations
                         new
                         {
                             Id = 3,
-                            Created = new DateTime(2024, 6, 17, 15, 7, 23, 592, DateTimeKind.Local).AddTicks(5913),
+                            Created = new DateTime(2025, 3, 3, 9, 36, 23, 749, DateTimeKind.Local).AddTicks(7643),
                             CreatedBy = "SeededData",
                             Description = "Guest AccountRole",
                             Name = "Guest"
@@ -338,7 +338,7 @@ namespace Infrastructure.Data.ApiTemplateMigrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2024, 6, 17, 15, 7, 23, 592, DateTimeKind.Local).AddTicks(4560),
+                            Created = new DateTime(2025, 3, 3, 9, 36, 23, 749, DateTimeKind.Local).AddTicks(6816),
                             CreatedBy = "SeededData",
                             Description = "Laptop Type",
                             Name = "Laptop"
@@ -346,7 +346,7 @@ namespace Infrastructure.Data.ApiTemplateMigrations
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2024, 6, 17, 15, 7, 23, 592, DateTimeKind.Local).AddTicks(4582),
+                            Created = new DateTime(2025, 3, 3, 9, 36, 23, 749, DateTimeKind.Local).AddTicks(6833),
                             CreatedBy = "SeededData",
                             Description = "Desktop Type",
                             Name = "Desktop"
@@ -354,7 +354,7 @@ namespace Infrastructure.Data.ApiTemplateMigrations
                         new
                         {
                             Id = 3,
-                            Created = new DateTime(2024, 6, 17, 15, 7, 23, 592, DateTimeKind.Local).AddTicks(4587),
+                            Created = new DateTime(2025, 3, 3, 9, 36, 23, 749, DateTimeKind.Local).AddTicks(6835),
                             CreatedBy = "SeededData",
                             Description = "Mobile Type",
                             Name = "Mobile"
@@ -415,7 +415,7 @@ namespace Infrastructure.Data.ApiTemplateMigrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2024, 6, 17, 15, 7, 23, 592, DateTimeKind.Local).AddTicks(7053),
+                            Created = new DateTime(2025, 3, 3, 9, 36, 23, 749, DateTimeKind.Local).AddTicks(8314),
                             CreatedBy = "SeededData",
                             Description = "Active Status",
                             Name = "Active"
@@ -423,7 +423,7 @@ namespace Infrastructure.Data.ApiTemplateMigrations
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2024, 6, 17, 15, 7, 23, 592, DateTimeKind.Local).AddTicks(7067),
+                            Created = new DateTime(2025, 3, 3, 9, 36, 23, 749, DateTimeKind.Local).AddTicks(8319),
                             CreatedBy = "SeededData",
                             Description = "Inactive Status",
                             Name = "Inactive"
@@ -431,7 +431,7 @@ namespace Infrastructure.Data.ApiTemplateMigrations
                         new
                         {
                             Id = 3,
-                            Created = new DateTime(2024, 6, 17, 15, 7, 23, 592, DateTimeKind.Local).AddTicks(7070),
+                            Created = new DateTime(2025, 3, 3, 9, 36, 23, 749, DateTimeKind.Local).AddTicks(8321),
                             CreatedBy = "SeededData",
                             Description = "Pending Status",
                             Name = "Pending"

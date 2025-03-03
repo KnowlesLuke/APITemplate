@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace Infrastructure.Data.Migrations
+namespace Infrastructure.Data.Migrations.APITemplate
 {
     /// <inheritdoc />
-    public partial class InitDatabaseSetup : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -31,7 +31,7 @@ namespace Infrastructure.Data.Migrations
                     Version = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Modified = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Modified = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Deleted = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
@@ -53,7 +53,7 @@ namespace Infrastructure.Data.Migrations
                     Version = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Modified = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Modified = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Deleted = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
@@ -75,7 +75,7 @@ namespace Infrastructure.Data.Migrations
                     Version = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Modified = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Modified = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Deleted = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
@@ -94,14 +94,15 @@ namespace Infrastructure.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Forename = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Surname = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    DisplayName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    DisplayName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, computedColumnSql: "[Forename] + ' ' + [Surname]"),
                     Username = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    Token = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     RoleId = table.Column<int>(type: "int", nullable: false),
                     Version = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Modified = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Modified = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Deleted = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
@@ -196,7 +197,7 @@ namespace Infrastructure.Data.Migrations
                         .Annotation("SqlServer:TemporalHistoryTableSchema", "Assets")
                         .Annotation("SqlServer:TemporalPeriodEndColumnName", "PeriodEnd")
                         .Annotation("SqlServer:TemporalPeriodStartColumnName", "PeriodStart"),
-                    Modified = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Modified = table.Column<DateTime>(type: "datetime2", nullable: true)
                         .Annotation("SqlServer:IsTemporal", true)
                         .Annotation("SqlServer:TemporalHistoryTableName", "DetailsHistory")
                         .Annotation("SqlServer:TemporalHistoryTableSchema", "Assets")
@@ -251,9 +252,9 @@ namespace Infrastructure.Data.Migrations
                 columns: new[] { "Id", "Created", "CreatedBy", "Deleted", "DeletedBy", "Description", "Modified", "ModifiedBy", "Name" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 5, 7, 13, 51, 19, 242, DateTimeKind.Local).AddTicks(3692), "SeededData", null, null, "System Admin AccountRole", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "System Admin" },
-                    { 2, new DateTime(2024, 5, 7, 13, 51, 19, 242, DateTimeKind.Local).AddTicks(3699), "SeededData", null, null, "Admin AccountRole", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Admin" },
-                    { 3, new DateTime(2024, 5, 7, 13, 51, 19, 242, DateTimeKind.Local).AddTicks(3701), "SeededData", null, null, "Guest AccountRole", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Guest" }
+                    { 1, new DateTime(2025, 3, 3, 9, 36, 23, 749, DateTimeKind.Local).AddTicks(7635), "SeededData", null, null, "System Admin AccountRole", null, null, "System Admin" },
+                    { 2, new DateTime(2025, 3, 3, 9, 36, 23, 749, DateTimeKind.Local).AddTicks(7642), "SeededData", null, null, "Admin AccountRole", null, null, "Admin" },
+                    { 3, new DateTime(2025, 3, 3, 9, 36, 23, 749, DateTimeKind.Local).AddTicks(7643), "SeededData", null, null, "Guest AccountRole", null, null, "Guest" }
                 });
 
             migrationBuilder.InsertData(
@@ -262,9 +263,9 @@ namespace Infrastructure.Data.Migrations
                 columns: new[] { "Id", "Created", "CreatedBy", "Deleted", "DeletedBy", "Description", "Modified", "ModifiedBy", "Name" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 5, 7, 13, 51, 19, 242, DateTimeKind.Local).AddTicks(4552), "SeededData", null, null, "Active Status", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Active" },
-                    { 2, new DateTime(2024, 5, 7, 13, 51, 19, 242, DateTimeKind.Local).AddTicks(4558), "SeededData", null, null, "Inactive Status", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Inactive" },
-                    { 3, new DateTime(2024, 5, 7, 13, 51, 19, 242, DateTimeKind.Local).AddTicks(4560), "SeededData", null, null, "Pending Status", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Pending" }
+                    { 1, new DateTime(2025, 3, 3, 9, 36, 23, 749, DateTimeKind.Local).AddTicks(8314), "SeededData", null, null, "Active Status", null, null, "Active" },
+                    { 2, new DateTime(2025, 3, 3, 9, 36, 23, 749, DateTimeKind.Local).AddTicks(8319), "SeededData", null, null, "Inactive Status", null, null, "Inactive" },
+                    { 3, new DateTime(2025, 3, 3, 9, 36, 23, 749, DateTimeKind.Local).AddTicks(8321), "SeededData", null, null, "Pending Status", null, null, "Pending" }
                 });
 
             migrationBuilder.InsertData(
@@ -273,23 +274,22 @@ namespace Infrastructure.Data.Migrations
                 columns: new[] { "Id", "Created", "CreatedBy", "Deleted", "DeletedBy", "Description", "Modified", "ModifiedBy", "Name" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 5, 7, 13, 51, 19, 242, DateTimeKind.Local).AddTicks(2650), "SeededData", null, null, "Laptop Type", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Laptop" },
-                    { 2, new DateTime(2024, 5, 7, 13, 51, 19, 242, DateTimeKind.Local).AddTicks(2675), "SeededData", null, null, "Desktop Type", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Desktop" },
-                    { 3, new DateTime(2024, 5, 7, 13, 51, 19, 242, DateTimeKind.Local).AddTicks(2678), "SeededData", null, null, "Mobile Type", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Mobile" }
+                    { 1, new DateTime(2025, 3, 3, 9, 36, 23, 749, DateTimeKind.Local).AddTicks(6816), "SeededData", null, null, "Laptop Type", null, null, "Laptop" },
+                    { 2, new DateTime(2025, 3, 3, 9, 36, 23, 749, DateTimeKind.Local).AddTicks(6833), "SeededData", null, null, "Desktop Type", null, null, "Desktop" },
+                    { 3, new DateTime(2025, 3, 3, 9, 36, 23, 749, DateTimeKind.Local).AddTicks(6835), "SeededData", null, null, "Mobile Type", null, null, "Mobile" }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Accounts",
                 table: "Details",
-                columns: new[] { "Id", "Created", "CreatedBy", "Deleted", "DeletedBy", "DisplayName", "Email", "Forename", "Modified", "ModifiedBy", "RoleId", "Surname", "ApplicationUsername" },
-                values: new object[] { 1, new DateTime(2024, 5, 7, 13, 51, 19, 238, DateTimeKind.Local).AddTicks(4819), "SeededData", null, null, "John Doe", "john.doe@tameside.gov.uk", "John", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 1, "Doe", "TMBC\\John.Doe" });
+                columns: new[] { "Id", "Created", "CreatedBy", "Deleted", "DeletedBy", "Email", "Forename", "Modified", "ModifiedBy", "RoleId", "Surname", "Token", "Username" },
+                values: new object[] { 1, new DateTime(2025, 3, 3, 9, 36, 23, 749, DateTimeKind.Local).AddTicks(3183), "SeededData", null, null, "john.doe@tameside.gov.uk", "John", null, null, 1, "Doe", new Guid("c72b832d-dfef-4ee7-af00-37916e2dcc5b"), "TMBC\\John.Doe" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Details_RoleId",
                 schema: "Accounts",
                 table: "Details",
-                column: "RoleId",
-                unique: true);
+                column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Details_AssetTypeId",
